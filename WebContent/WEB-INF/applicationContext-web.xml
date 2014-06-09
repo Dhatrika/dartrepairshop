@@ -8,15 +8,20 @@
     
 	<bean id="loginWeb" class="web.action.Login" >
 		<constructor-arg ref="loginValidate"></constructor-arg>
+		<constructor-arg ref="customerService"></constructor-arg>
 	</bean>
 	
 	 <bean id="homeWeb" class="web.action.Home" >
 	</bean>
-	<!--
-	<bean id="configureWeb" class="web.action.Configure" >
-		<constructor-arg ref="itemService"></constructor-arg>
-		<constructor-arg ref="loginValidate"></constructor-arg>
+
+	<bean id="customerWeb" class="web.action.CustomerAction" >
+		<constructor-arg ref="customerService"></constructor-arg>
+		<constructor-arg ref="referenceData"></constructor-arg>
 	</bean>
-     -->
+
+	<bean id="orderWeb" class="web.action.OrderAction" >
+		<constructor-arg ref="orderService"></constructor-arg>
+		<constructor-arg ref="referenceData"></constructor-arg>
+	</bean>
      
 </beans>

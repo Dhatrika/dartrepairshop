@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import common.util.DartConstants;
+
 public class LoginDaoImpl implements LoginDao{
 	
 	public LoginDaoImpl() {
@@ -14,10 +16,11 @@ public class LoginDaoImpl implements LoginDao{
 	}
 
 	@Override
-	public boolean passwordValidate(String pwd, String emailAddress) throws Exception{
+	public String passwordValidate(String pwd, String emailAddress) throws Exception{
 		
 		String passwordReturn = "";
 		String emailAdd = "";
+		int isOwner = 0;
 		Statement cs = null;
         ResultSet rs = null;
 		
@@ -28,11 +31,12 @@ public class LoginDaoImpl implements LoginDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT emailAddress,PASSWORD FROM USER");
+	            rs = cs.executeQuery("SELECT emailAddress,password,isowner FROM USER");
 				if(rs != null){
 					while(rs.next()){
 						emailAdd = rs.getString(1);
 						passwordReturn = rs.getString(2);
+						isOwner = rs.getInt(3);
 					}
 				}
 			}
@@ -41,10 +45,16 @@ public class LoginDaoImpl implements LoginDao{
 			}
 			
 			if(passwordReturn != "" && emailAdd != ""){
-				if((passwordReturn.equals(pwd)) && (emailAdd.equals(emailAddress))) 
-					return true;
+				if((passwordReturn.equals(pwd)) && (emailAdd.equals(emailAddress))) {
+					if(isOwner == 1)
+						return DartConstants.OWNER;
+					else
+						return DartConstants.CUSTOMER;
+				}
 				else
-					return false;
+				{
+					return DartConstants.FALSEBOOL;
+				}
 			}
 
 		}
@@ -63,7 +73,7 @@ public class LoginDaoImpl implements LoginDao{
 		}
 		
 	
-		return false;
+		return "false";
 		
 	}
 	

@@ -12,12 +12,12 @@ public class DBConnection {
 		} catch (ClassNotFoundException e) {
 			throw e;
 		}
-		
+
 		Connection connection = null;
 		try {
-			 
-			connection = DriverManager.getConnection(
-					"jdbc:sqlite:C:/python/dartdb.db");
+			
+			String connectionString =  "jdbc:sqlite:D:\\Nikki\\dartdb\\dartdb.db"; 
+			connection = DriverManager.getConnection(connectionString);
  
 		} catch (SQLException e) {
  

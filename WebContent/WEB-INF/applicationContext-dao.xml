@@ -10,10 +10,11 @@
 	
 	<bean id="loginDao" class="dao.modules.LoginDaoImpl" >
 	</bean>
-    
-    <!-- 
-    <bean id="itemDao" class="dao.modules.ItemDaoImpl" >
+     
+    <bean id="customerDao" class="dao.modules.CustomerDaoImpl" >
 	</bean>
-	 -->
-    
+	
+	<bean id="orderDao" class="dao.modules.OrderDaoImpl" >
+	</bean>
+
 </beans>

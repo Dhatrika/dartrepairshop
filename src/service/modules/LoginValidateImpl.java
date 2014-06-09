@@ -11,12 +11,11 @@ public class LoginValidateImpl implements LoginValidate{
 	}
 	
 	public LoginValidateImpl(LoginDao loginDao) {
-		super();
 		this.loginDao = loginDao;
 	}
 
 	@Override
-	public boolean passwordValidate(String pwd, String emailAddress) throws Exception{
+	public String passwordValidate(String pwd, String emailAddress) throws Exception{
 		return(loginDao.passwordValidate(pwd,emailAddress));
 	}
 

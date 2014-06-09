@@ -10,11 +10,20 @@
 		<constructor-arg ref="loginDao"></constructor-arg>
 	</bean>
 	
-	<!--<bean id="itemService" class="service.modules.ItemServiceImpl" >
-		<constructor-arg ref="itemDao"></constructor-arg>
-		<constructor-arg ref="loginDao"></constructor-arg>
+	<bean id="customerService" class="service.modules.CustomerServiceImpl" >
+		<constructor-arg ref="customerDao"></constructor-arg>
+		<constructor-arg ref="orderDao"></constructor-arg>
+	</bean>
+	
+	<bean id="orderService" class="service.modules.OrderServiceImpl" >
+		<constructor-arg ref="orderDao"></constructor-arg>
+	</bean>
+	
+	<bean id="referenceData"
+			class="service.modules.ReferenceData"
+			init-method="init">
+		<constructor-arg ref="orderDao"></constructor-arg>
 	</bean>
     
-     -->
     
 </beans>

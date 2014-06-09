@@ -6,12 +6,26 @@
 
   	<package name="default" extends="struts-default">
     		<action name="login" class="loginWeb">
-      			<result name="success">/customer.jsp</result>
+      			<result name="customer">/customer.jsp</result>
+      			<result name="owner">/owner.jsp</result>
       			<result name="error">/invalidcredentials.jsp</result>
     		</action>
     		<action name="home" class="homeWeb">
       			<result name="success">/login.jsp</result>
-    		</action>	
+    		</action>
+    		<action name="showAllOrders" class="customerWeb" method="showAllOrders">
+      			<result name="success">/showallorders.jsp</result>
+    		</action>
+    		<action name="addOrder" class="orderWeb" method="addOrder">
+      			<result name="success">/addOrder.jsp</result>
+    		</action>  
+    		 <action name="saveOrder" class="orderWeb" method="saveOrder">
+      			<result name="success" type="redirect">
+				loadOrder.action?orderId=${orderId}</result>
+    		</action>   
+    		<action name="loadOrder" class="orderWeb" method="loadOrder">
+      			<result name="success">/showorderparts.jsp</result>
+    		</action>   		
   	</package>
 
 </struts>

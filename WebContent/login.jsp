@@ -10,11 +10,11 @@
 </head>
 <script>
 function validate(){
-	if(loginForm.emailAddress.value == ''){
+	if(loginForm.loginUserEmailAddress.value == ''){
 		alert('Please enter valid emailAddress');
 				return false;
 	}
-	else if(loginForm.password.value == ''){
+	else if(loginForm.loginUserPassword.value == ''){
 		alert('Please enter valid password');
 		return false;
 	}
@@ -31,9 +31,9 @@ function validate(){
 
 <table>
 <tr><td>&nbsp;EmailAddress</td></tr>
-<tr><td><s:textfield theme="simple" name="emailAddress" id="emailAddress"/></td></tr>
+<tr><td><s:textfield theme="simple" name="loginUser.emailAddress" id="loginUserEmailAddress"/></td></tr>
 <tr><td>&nbsp;Password</td></tr>
-<tr><td><s:password theme="simple" name="password" id="password"/></td></tr> 
+<tr><td><s:password theme="simple" name="loginUser.password" id="loginUserPassword"/></td></tr> 
 
 </table>
 
