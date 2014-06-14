@@ -12,6 +12,9 @@ public class DartConstants {
 	public static final String CUSTOMER = "customer";
 	public static final String FALSEBOOL = "false";
 	public static final String ORDERPLACED = "Placed";
+	public static final String ORDERCANCELLED = "Cancelled";
+	public static final String ORDERPENDINGPAYMENT = "Payment Pending";
+	public static final String ORDERREADYDELIVERY = "Ready for Delivery";
 	
 	public static String getCurrentDate() {
 		Date date = Calendar.getInstance().getTime();

@@ -40,6 +40,8 @@
 <ul>
 <li><a id="showAllOrders" href="javascript:showAllOrders();">Show Orders</a></li>
 <li><a id="addOrder" href="javascript:addOrder();">Place New Order</a></li>
+<li><a id="logout" href="logout.jsp">Logout</a></li>
+
 </ul>
 
 </body>

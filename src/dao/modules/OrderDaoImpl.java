@@ -11,6 +11,7 @@ import java.util.List;
 import common.modules.Item;
 import common.modules.Order;
 import common.modules.Part;
+import common.modules.PaymentInfo;
 import common.modules.Status;
 
 public class OrderDaoImpl implements OrderDao{
@@ -28,7 +29,7 @@ public class OrderDaoImpl implements OrderDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority FROM AllOrders WHERE customerId = '" + customerId + "'");
+	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo FROM AllOrders WHERE customerId = '" + customerId + "'");
 				if(rs != null){
 					while(rs.next()){
 						Order ord = new Order();
@@ -48,6 +49,16 @@ public class OrderDaoImpl implements OrderDao{
 						else{
 							ord.setPriority("Yes");
 						}
+						ord.setStatusId(rs.getInt(10));
+						int paidInfo = rs.getInt(11);
+						if(paidInfo == 0)
+						{
+							ord.setPaidInfo("No");
+						}
+						else{
+							ord.setPaidInfo("Yes");
+						}
+						ord.setPaymentInfo(rs.getString(12));
 						allOrders.add(ord);
 					}
 				}
@@ -89,7 +100,7 @@ public class OrderDaoImpl implements OrderDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority FROM AllOrders WHERE customerOrderId = '" + orderId + "'");
+	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo FROM AllOrders WHERE customerOrderId = '" + orderId + "'");
 				if(rs != null){
 					while(rs.next()){
 						ord.setCustomerId(rs.getInt(1));
@@ -108,6 +119,16 @@ public class OrderDaoImpl implements OrderDao{
 						else{
 							ord.setPriority("Yes");
 						}
+						ord.setStatusId(rs.getInt(10));
+						int paidInfo = rs.getInt(11);
+						if(paidInfo == 0)
+						{
+							ord.setPaidInfo("No");
+						}
+						else{
+							ord.setPaidInfo("Yes");
+						}
+						ord.setPaymentInfo(rs.getString(12));
 					}
 				}
 				
@@ -410,5 +431,117 @@ public class OrderDaoImpl implements OrderDao{
 		}
 		
 	}
+	
+
+	@Override
+	public int updateOrderStatus(int orderId,int statusId) throws Exception {
+		
+		Statement cs = null;
+		PreparedStatement ps = null;
+        ResultSet rs = null;
+        int tobeReturned = 0;
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+		
+			if (connection != null) {
+				
+				cs = connection.createStatement();
+				
+				
+			    connection.setAutoCommit(false);
+			    
+			    ps = connection.prepareStatement("UPDATE CustomerOrder SET statusId = ? WHERE customerOrderId = ?");
+			    ps.setInt(1, statusId);
+			    ps.setInt(2, orderId);
+			    ps.executeUpdate();
+				
+				tobeReturned = orderId;
+				
+				connection.commit();
+				
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+			
+			return tobeReturned;
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database" + e.getMessage());
+		}
+		finally{
+			try {
+				if(ps != null)
+					ps.close();
+				if(rs != null)
+					rs.close();
+				if(cs != null)
+					cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		
+	}
+
+	@Override
+	public int updateOrderPaymentInfo(int orderId, int paymentId,int statusId)
+			throws Exception {
+		
+		Statement cs = null;
+		PreparedStatement ps = null;
+        ResultSet rs = null;
+        int tobeReturned = 0;
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+		
+			if (connection != null) {
+				
+				cs = connection.createStatement();
+				
+				
+			    connection.setAutoCommit(false);
+			    
+			    ps = connection.prepareStatement("UPDATE CustomerOrder SET isPaid = 1, paymentInfoId = ?, statusId= ? WHERE customerOrderId = ?");
+			    ps.setInt(1, paymentId);
+			    ps.setInt(2, statusId);
+			    ps.setInt(3, orderId);
+			    ps.executeUpdate();
+				
+				tobeReturned = orderId;
+				
+				connection.commit();
+				
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+			
+			return tobeReturned;
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database" + e.getMessage());
+		}
+		finally{
+			try {
+				if(ps != null)
+					ps.close();
+				if(rs != null)
+					rs.close();
+				if(cs != null)
+					cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+	}
+
+
 
 }

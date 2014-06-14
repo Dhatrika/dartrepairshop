@@ -34,6 +34,17 @@ public class OrderServiceImpl implements OrderService{
 	public Order getCompleteOrder(int orderId) throws Exception {
 		return orderDao.getCompleteOrder(orderId);
 	}
+
+	@Override
+	public int updateOrderStatus(int orderId, int statusId) throws Exception {
+		return orderDao.updateOrderStatus(orderId, statusId);
+	}
+
+	@Override
+	public int updateOrderPaymentInfo(int orderId, int paymentId, int statusId)
+			throws Exception {
+		return orderDao.updateOrderPaymentInfo(orderId, paymentId, statusId);
+	}
 	
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import common.modules.Customer;
 import common.modules.Order;
+import common.modules.PaymentInfo;
 import dao.modules.CustomerDao;
 import dao.modules.OrderDao;
 
@@ -45,6 +46,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<Order> getAllOrders(int customerId) throws Exception {
 		return orderDao.getAllOrders(customerId);
+	}
+
+	@Override
+	public List<PaymentInfo> getAllPaymentInfo(int customerId) throws Exception {
+		return customerDao.getAllPaymentInfo(customerId);
 	}
 
 	

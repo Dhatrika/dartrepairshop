@@ -22,6 +22,7 @@
 	<bean id="orderWeb" class="web.action.OrderAction" >
 		<constructor-arg ref="orderService"></constructor-arg>
 		<constructor-arg ref="referenceData"></constructor-arg>
+		<constructor-arg ref="customerService"></constructor-arg>
 	</bean>
      
 </beans>

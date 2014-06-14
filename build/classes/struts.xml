@@ -19,10 +19,26 @@
     		<action name="addOrder" class="orderWeb" method="addOrder">
       			<result name="success">/addOrder.jsp</result>
     		</action>  
-    		 <action name="saveOrder" class="orderWeb" method="saveOrder">
+    		 <action name="saveNewOrder" class="orderWeb" method="saveNewOrder">
       			<result name="success" type="redirect">
 				loadOrder.action?orderId=${orderId}</result>
-    		</action>   
+    		</action>  
+    		
+    		<action name="saveCustomerExistingOrder" class="orderWeb" method="saveCustomerExistingOrder">
+      			<result name="success" type="redirect">
+				loadOrder.action?orderId=${orderId}</result>
+    		</action> 
+    		
+    		<action name="loadPayment" class="orderWeb" method="loadPayment">
+    		<result name="success">/makePayment.jsp</result>
+      			
+    		</action> 
+    		<action name="makePayment" class="orderWeb" method="makePayment">
+      			<result name="success" type="redirect">
+				loadOrder.action?orderId=${orderId}</result>
+    		</action> 
+    		
+    		
     		<action name="loadOrder" class="orderWeb" method="loadOrder">
       			<result name="success">/showorderparts.jsp</result>
     		</action>   		

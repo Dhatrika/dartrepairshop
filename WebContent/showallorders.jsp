@@ -28,7 +28,6 @@ function openOrder(orderId){
 
 		<td>Order Date</td>
 		<td>Order Status</td>
-		<td>Order Rating</td>
 
 		<td>Order Comments</td>
 		<td>IsPriority?</td>
@@ -45,8 +44,6 @@ function openOrder(orderId){
 			value="orderDate" /></td>
 		<td><s:property
 			value="statusName" /></td>
-		<td><s:property
-			value="ratingName" /></td>
 
 		<td><s:property
 			value="comments" /></td>

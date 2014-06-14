@@ -1,5 +1,6 @@
 package web.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import service.modules.CustomerService;
 import service.modules.OrderService;
 import service.modules.ReferenceData;
 
@@ -16,9 +18,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import common.modules.Item;
 import common.modules.Order;
 import common.modules.Part;
+import common.modules.PaymentInfo;
 import common.modules.Status;
 import common.util.DartConstants;
-import dao.modules.OrderDao;
 
 @SuppressWarnings("serial")
 public class OrderAction extends ActionSupport implements ServletRequestAware, ServletResponseAware{
@@ -34,8 +36,11 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	   private int orderId;
 	   private List<Item> itemsList;
 	   private List<Status> statusList;
-	   
-	   @Override
+	   private List<Status> partialStatusList;
+	   private CustomerService customerService;
+	   List<PaymentInfo> paymentInfoList;
+
+	   	@Override
 		public void setServletRequest(HttpServletRequest arg0) {
 			this.request = arg0;
 		}
@@ -62,9 +67,11 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 
 		public OrderAction(OrderService orderService,
-				ReferenceData referenceData) {
+				ReferenceData referenceData,
+				CustomerService customerService) {
 			this.orderService = orderService;
 			this.referenceData = referenceData;
+			this.customerService = customerService;
 		}
 		
 		public OrderAction(){
@@ -86,10 +93,17 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
 			completeOrder = orderService.getCompleteOrder(orderId);
+			statusList = referenceData.getStatuses();
+			partialStatusList = new ArrayList<Status>();
+			for(Status st: statusList){
+				if(st.getStatusName().equals(DartConstants.ORDERPLACED) || st.getStatusName().equals(DartConstants.ORDERCANCELLED)){
+					partialStatusList.add(st);
+				}
+			}
 			return SUCCESS;
 		}
 		
-		public String saveOrder() throws Exception{
+		public String saveNewOrder() throws Exception{
 			completeOrder.setCustomerId(customerId);
 			completeOrder.setComments("Placed");
 			int statusId = 0;
@@ -112,6 +126,40 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			}
 			completeOrder.setOrderDate(DartConstants.getCurrentDate());
 			orderId = orderService.saveOrder(true, completeOrder, orderPart.getPartId());
+			return SUCCESS;
+		}
+		
+		
+		public String saveCustomerExistingOrder() throws Exception{
+			int ordId = completeOrder.getOrderId();
+			int statusId = completeOrder.getStatusId();
+			orderId = orderService.updateOrderStatus(ordId, statusId);
+			return SUCCESS;
+		}
+		
+		public String loadPayment() throws Exception{
+			String ordId = request.getParameter("orderId");
+			orderId = Integer.valueOf(ordId);
+			String custId = request.getParameter("customerId");
+			customerId = Integer.valueOf(custId);
+			paymentInfoList = customerService.getAllPaymentInfo(customerId);
+			return SUCCESS;
+		}
+		
+		public String makePayment() throws Exception{
+			String ordId = request.getParameter("orderId");
+			orderId = Integer.valueOf(ordId);
+			String custId = request.getParameter("customerId");
+			customerId = Integer.valueOf(custId);
+			String payStId = request.getParameter("payId");
+			int paymentId = Integer.valueOf(payStId);
+			int statusId = 0;
+			for(Status st : referenceData.getStatuses()){
+				if(st.getStatusName().equals(DartConstants.ORDERREADYDELIVERY)){
+					statusId = st.getStatusId();
+				}
+			}
+			orderService.updateOrderPaymentInfo(orderId,paymentId,statusId);
 			return SUCCESS;
 		}
 
@@ -169,5 +217,26 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		public void setStatusList(List<Status> statusList) {
 			this.statusList = statusList;
 		}
-		
+		public List<Status> getPartialStatusList() {
+			return partialStatusList;
+		}
+
+		public void setPartialStatusList(List<Status> partialStatusList) {
+			this.partialStatusList = partialStatusList;
+		}
+
+		public CustomerService getCustomerService() {
+			return customerService;
+		}
+
+		public void setCustomerService(CustomerService customerService) {
+			this.customerService = customerService;
+		}
+		public List<PaymentInfo> getPaymentInfoList() {
+			return paymentInfoList;
+		}
+
+		public void setPaymentInfoList(List<PaymentInfo> paymentInfoList) {
+			this.paymentInfoList = paymentInfoList;
+		}
 }

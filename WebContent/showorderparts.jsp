@@ -8,23 +8,62 @@
 <title>DART</title>
 <LINK media="screen" href="common.css" type="text/css" rel="STYLESHEET"></LINK>
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
+<script type="text/javascript">
+function validate(){
+	
+	var selectedValue = $("#orderStatusId option:selected").text();
+	if(selectedValue == "Select"){
+		alert("Please select a valid status");
+		return false;
+	}
+	return true;
+}
+function makePayment(orderId, customerId){
+	var url = "./loadPayment.action?customerId=" + customerId + "&orderId="+orderId;
+	window.open(url,"_self");
+} 
+</script>
 </head>
 <body>
 
+<form name="showOrderForm" id="showOrderForm" action="saveCustomerExistingOrder.action" method="post">
 <table>
-<tr><td>OrderId</td><td><s:property value="completeOrder.orderId"/></td> </tr>
-	<tr>	<td>Item Repaired</td> <td><s:property value="completeOrder.itemName"/></td>  </tr>
+<tr><td>OrderId</td><td><s:property value="completeOrder.orderId"/></td> <td></td> </tr>
+	<tr>	<td>Item Repaired</td> <td><s:property value="completeOrder.itemName"/></td> <td></td> </tr>
 
-		<tr> <td>Order Date</td> <td><s:property value="completeOrder.orderDate"/></td>  </tr>
-		<tr> <td>Order Status</td> <td><s:property value="completeOrder.statusName"/></td> </tr>
-		<tr> <td>Order Rating</td> <td><s:property value="completeOrder.ratingName"/></td>  </tr>
+		<tr> <td>Order Date</td> <td><s:property value="completeOrder.orderDate"/></td> <td></td> </tr>
 
-		<tr> <td>Order Comments</td> <td><s:property value="completeOrder.comments"/></td> </tr>
-		<tr> <td>IsPriority?</td> <td><s:property value="completeOrder.priority"/></td> </tr>
-		<tr> <td>Cost</td> <td><s:property value="completeOrder.actualCost"/></td> </tr>
+<s:if test="completeOrder.statusName == 'Placed' || completeOrder.statusName == 'Cancelled'">
+	<tr> <td>Order Status</td>
+	<td><s:select list="partialStatusList" listKey="statusId" theme="simple"
+													listValue="statusName" headerKey='-1' headerValue="Select"
+													id="orderStatusId"
+													value="completeOrder.statusId"
+													name="completeOrder.statusId"
+													cssStyle="width:100px;">
+												</s:select></td><td></td></tr>
+</s:if>
+<s:else>
+<tr> <td>Order Status</td> <td><s:property value="completeOrder.statusName"/></td> <td></td></tr>
+</s:else>
+
+
+		
+
+		<tr> <td>Order Comments</td> <td><s:property value="completeOrder.comments"/></td><td></td> </tr>
+		<tr> <td>IsPriority?</td> <td><s:property value="completeOrder.priority"/></td> <td></td></tr>
+		<tr> <td>Cost</td> <td><s:property value="completeOrder.actualCost"/></td> <td></td></tr>
+<s:if test="completeOrder.paidInfo == 'Yes'">
+		<tr> <td>IsPaid?</td> <td><s:property value="completeOrder.paidInfo"/>&nbsp;&nbsp;&nbsp;Payment Information:&nbsp;<s:property value="completeOrder.paymentInfo"/></td><td></td> </tr>
+</s:if>
+<s:else>
+		<tr> <td>IsPaid?</td> <td><s:property value="completeOrder.paidInfo"/>&nbsp;<s:if test="completeOrder.statusName == 'Payment Pending'"><a id="makePayment" href="javascript:makePayment(<s:property value="completeOrder.orderId"/>,<s:property value="completeOrder.customerId"/>);">Make Payment</a></s:if></td><td></td> </tr>
+</s:else>
 
 <tr> </tr>
 <tr> </tr>
+</table>
+<table>
 <tr> <td> <h1> Order Parts are: </h1></td> </tr>
 	<tr>
 		<td>Part</td>
@@ -43,6 +82,11 @@
 </s:iterator>
 
 
+
 </table>
+<s:if test="completeOrder.statusName == 'Placed' || completeOrder.statusName == 'Cancelled'">
+<s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
+</s:if>
+</form>
 </body>
 </html>

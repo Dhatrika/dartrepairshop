@@ -18,6 +18,10 @@ public class Order {
 	private Integer statusId;
 	private Boolean isPrior;
 	private Integer priorInt;
+	private String paidInfo;
+	private Boolean isPaid;
+	private Integer paidInt;
+	private String paymentInfo;
 	
 	public Integer getOrderId() {
 		return orderId;
@@ -102,6 +106,30 @@ public class Order {
 	}
 	public void setPriorInt(Integer priorInt) {
 		this.priorInt = priorInt;
+	}
+	public Boolean getIsPaid() {
+		return isPaid;
+	}
+	public void setIsPaid(Boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+	public Integer getPaidInt() {
+		return paidInt;
+	}
+	public void setPaidInt(Integer paidInt) {
+		this.paidInt = paidInt;
+	}
+	public String getPaidInfo() {
+		return paidInfo;
+	}
+	public void setPaidInfo(String paidInfo) {
+		this.paidInfo = paidInfo;
+	}
+	public String getPaymentInfo() {
+		return paymentInfo;
+	}
+	public void setPaymentInfo(String paymentInfo) {
+		this.paymentInfo = paymentInfo;
 	}
 	public Order(){
 		

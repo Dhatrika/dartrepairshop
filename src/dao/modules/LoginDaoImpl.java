@@ -31,7 +31,7 @@ public class LoginDaoImpl implements LoginDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT emailAddress,password,isowner FROM USER");
+	            rs = cs.executeQuery("SELECT emailAddress,password,isowner FROM USER WHERE emailAddress = '" + emailAddress + "' AND password = '" + pwd + "'");
 				if(rs != null){
 					while(rs.next()){
 						emailAdd = rs.getString(1);

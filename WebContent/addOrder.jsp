@@ -33,7 +33,7 @@ function validate(){
 </head>
 <body>
 
-<form name="addOrderForm" id="addOrderForm" action="saveOrder.action" method="post">
+<form name="addOrderForm" id="addOrderForm" action="saveNewOrder.action" method="post">
 <s:hidden id="customerId" name="customerId"/>
 
 <table>
