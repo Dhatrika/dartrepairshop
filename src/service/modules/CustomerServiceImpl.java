@@ -53,5 +53,21 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerDao.getAllPaymentInfo(customerId);
 	}
 
+	@Override
+	public Customer getCustomerInfo(int customerId) throws Exception {
+		return customerDao.getCustomerInfo(customerId);
+	}
+
+	@Override
+	public void updateCustomerInfo(Customer customer, int customerId)
+			throws Exception {
+		customerDao.updateCustomerInfo(customer, customerId);		
+	}
+
+	@Override
+	public List<Customer> getAllCustomers() throws Exception {
+		return customerDao.getAllCustomers();
+	}
+
 	
 }

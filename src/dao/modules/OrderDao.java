@@ -16,7 +16,7 @@ public interface OrderDao {
 		public List<String> getAllRatings() throws Exception;
 		public List<Part> getAllRepairParts() throws Exception;
 		public int saveOrder(boolean isNew, Order ord, int partId) throws Exception;
-		public int updateOrderStatus(int orderId,int statusId) throws Exception;
+		public int updateOrderStatus(int orderId,int statusId, String comments) throws Exception;
 		public int updateOrderPaymentInfo(int orderId,int paymentId,int statusId) throws Exception;
 		
 }

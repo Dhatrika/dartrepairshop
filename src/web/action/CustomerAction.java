@@ -12,6 +12,8 @@ import service.modules.CustomerService;
 import service.modules.ReferenceData;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import common.modules.Customer;
 import common.modules.Order;
 
 @SuppressWarnings("serial")
@@ -24,6 +26,9 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	   private List<Order> allOrders;
 	   private int customerId;
 	   private Order completeOrder;
+	   private Customer customer;
+	   List<Customer> allCustomers;
+	   private Boolean ownerRelated;
 	   
 	   @Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -61,13 +66,54 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	        response.setDateHeader("Expires", 0);
 	        String customerStringId = request.getParameter("customerId");
 	        int custId = Integer.valueOf(customerStringId);
-	        
+	        String ownerStringRelated = request.getParameter("ownerRelated");
+	        ownerRelated = Boolean.valueOf(ownerStringRelated);
 	        customerId = custId;
 	        allOrders = customerService.getAllOrders(custId);
 	        return SUCCESS;
 			
 		}
-
+		
+		public String loadProfile() throws Exception{
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        
+	        String customerStringId = request.getParameter("customerId");
+	        int custId = Integer.valueOf(customerStringId);
+	        String ownerStringRelated = request.getParameter("ownerRelated");
+	        ownerRelated = Boolean.valueOf(ownerStringRelated);
+	        
+	        customerId = custId;
+	        customer = customerService.getCustomerInfo(customerId);
+	        
+			return SUCCESS;
+		}
+		
+		public String saveCustomerInfo() throws Exception{
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        String ownerStringRelated = request.getParameter("ownerRelated");
+	        ownerRelated = Boolean.valueOf(ownerStringRelated);
+	        customerId = customer.getCustomerId();
+	        customerService.updateCustomerInfo(customer, customerId);
+	        customer = customerService.getCustomerInfo(customerId);
+	        
+			return SUCCESS;
+		}
+		
+		public String showAllCustomers() throws Exception{
+			
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        ownerRelated = true;
+	        allCustomers = customerService.getAllCustomers();
+	        return SUCCESS;
+			
+		}		
+		
 		public List<Order> getAllOrders() {
 			return allOrders;
 		}
@@ -98,6 +144,31 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 
 		public void setReferenceData(ReferenceData referenceData) {
 			this.referenceData = referenceData;
-		}	
+		}
+
+		public Customer getCustomer() {
+			return customer;
+		}
+
+		public void setCustomer(Customer customer) {
+			this.customer = customer;
+		}
+
+		public List<Customer> getAllCustomers() {
+			return allCustomers;
+		}
+
+		public void setAllCustomers(List<Customer> allCustomers) {
+			this.allCustomers = allCustomers;
+		}
+
+		public Boolean getOwnerRelated() {
+			return ownerRelated;
+		}
+
+		public void setOwnerRelated(Boolean ownerRelated) {
+			this.ownerRelated = ownerRelated;
+		}
+	
 
 }

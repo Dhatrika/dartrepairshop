@@ -26,6 +26,7 @@ function validate(){
 
 <s:hidden id="orderId" name="orderId"></s:hidden>
 <s:hidden id="customerId" name="customerId"></s:hidden>
+<s:hidden id="ownerRelated" name="ownerRelated"></s:hidden>
 <table>
 <tr><td>OrderId</td><td><s:property value="orderId" /></td> </tr>
 <tr><td>Payment Option:</td>

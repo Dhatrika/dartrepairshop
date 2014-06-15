@@ -35,6 +35,7 @@ function validate(){
 
 <form name="addOrderForm" id="addOrderForm" action="saveNewOrder.action" method="post">
 <s:hidden id="customerId" name="customerId"/>
+<s:hidden id="ownerRelated" name="ownerRelated"/>
 
 <table>
 

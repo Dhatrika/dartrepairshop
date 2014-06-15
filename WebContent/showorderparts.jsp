@@ -27,11 +27,27 @@ function makePayment(orderId, customerId){
 <body>
 
 <form name="showOrderForm" id="showOrderForm" action="saveCustomerExistingOrder.action" method="post">
+<s:hidden id="ownerRelated" name="ownerRelated"/>
 <table>
 <tr><td>OrderId</td><td><s:property value="completeOrder.orderId"/></td> <td></td> </tr>
 	<tr>	<td>Item Repaired</td> <td><s:property value="completeOrder.itemName"/></td> <td></td> </tr>
 
 		<tr> <td>Order Date</td> <td><s:property value="completeOrder.orderDate"/></td> <td></td> </tr>
+
+<s:if test="ownerRelated">
+
+	<tr> <td>Order Status</td>
+	<td><s:select list="statusList" listKey="statusId" theme="simple"
+													listValue="statusName" headerKey='-1' headerValue="Select"
+													id="orderStatusId"
+													value="completeOrder.statusId"
+													name="completeOrder.statusId"
+													cssStyle="width:100px;">
+												</s:select></td><td></td></tr>
+
+</s:if>
+
+<s:else>
 
 <s:if test="completeOrder.statusName == 'Placed' || completeOrder.statusName == 'Cancelled'">
 	<tr> <td>Order Status</td>
@@ -47,10 +63,19 @@ function makePayment(orderId, customerId){
 <tr> <td>Order Status</td> <td><s:property value="completeOrder.statusName"/></td> <td></td></tr>
 </s:else>
 
+</s:else>
+
+
+
 
 		
-
-		<tr> <td>Order Comments</td> <td><s:property value="completeOrder.comments"/></td><td></td> </tr>
+<s:if test="ownerRelated">
+<tr> <td>Order Comments</td>  <td><s:textfield theme="simple" name='completeOrder.comments' id="comments"/></td><td></td> </tr>
+</s:if>
+<s:else>
+<tr> <td>Order Comments</td> <td><s:property value="completeOrder.comments"/></td><td></td> </tr>
+</s:else>
+		
 		<tr> <td>IsPriority?</td> <td><s:property value="completeOrder.priority"/></td> <td></td></tr>
 		<tr> <td>Cost</td> <td><s:property value="completeOrder.actualCost"/></td> <td></td></tr>
 <s:if test="completeOrder.paidInfo == 'Yes'">
@@ -84,9 +109,17 @@ function makePayment(orderId, customerId){
 
 
 </table>
+
+<s:if test="ownerRelated">
+<s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
+</s:if>
+<s:else>
+
 <s:if test="completeOrder.statusName == 'Placed' || completeOrder.statusName == 'Cancelled'">
 <s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 </s:if>
+
+</s:else>
 </form>
 </body>
 </html>

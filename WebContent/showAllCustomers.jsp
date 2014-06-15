@@ -10,8 +10,8 @@
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
 <script type="text/javascript">
 
-function openOrder(orderId){
-	var url = "./loadOrder.action?orderId=" + orderId+"&ownerRelated="+ownerRelated.value;
+function openCustomer(customerId){
+	var url = "./loadProfile.action?customerId=" + customerId + "&ownerRelated="+ ownerRelated.value;
 	window.open(url,"_blank");
 }
 
@@ -19,40 +19,25 @@ function openOrder(orderId){
 </head>
 <body>
 
-<s:hidden id="customerId" name="customerId"/>
 <s:hidden id="ownerRelated" name="ownerRelated"/>
-
 
 <table>
 <tr>
-		<td>OrderId</td>
-		<td>Item Repaired</td>
-
-		<td>Order Date</td>
-		<td>Order Status</td>
-
-		<td>Order Comments</td>
-		<td>IsPriority?</td>
-		<td>Cost</td>
+		<td>CustomerId</td>
+		<td>Customer Name</td>
+		<td>Email</td>
+		<td>Phone</td>
 </tr>
-<s:iterator value="allOrders" status="rowstatus1">
+<s:iterator value="allCustomers" status="rowstatus1">
 	<tr>
-		<td><a id="openOrder" href="javascript:openOrder(<s:property value="orderId"/>);"><s:property
-			value="orderId" /></a></td>
+		<td><a id="openCustomer" href="javascript:openCustomer(<s:property value="customerId"/>);"><s:property
+			value="customerId" /></a></td>
 		<td><s:property
-			value="itemName" /></td>
-
+			value="customerName" /></td>
 		<td><s:property
-			value="orderDate" /></td>
+			value="emailAddress" /></td>
 		<td><s:property
-			value="statusName" /></td>
-
-		<td><s:property
-			value="comments" /></td>
-		<td><s:property
-			value="priority" /></td>
-		<td><s:property
-			value="actualCost" /></td>
+			value="phoneNumber" /></td>
 	</tr>
 </s:iterator>
 </table>

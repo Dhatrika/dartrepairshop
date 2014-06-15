@@ -17,4 +17,7 @@
 	<bean id="orderDao" class="dao.modules.OrderDaoImpl" >
 	</bean>
 
+    <bean id="ownerDao" class="dao.modules.OwnerDaoImpl" >
+	</bean>
+	
 </beans>

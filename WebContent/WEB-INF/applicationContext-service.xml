@@ -15,6 +15,10 @@
 		<constructor-arg ref="orderDao"></constructor-arg>
 	</bean>
 	
+	<bean id="ownerService" class="service.modules.OwnerServiceImpl" >
+		<constructor-arg ref="ownerDao"></constructor-arg>
+	</bean>
+	
 	<bean id="orderService" class="service.modules.OrderServiceImpl" >
 		<constructor-arg ref="orderDao"></constructor-arg>
 	</bean>

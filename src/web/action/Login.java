@@ -9,11 +9,13 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import service.modules.CustomerService;
 import service.modules.LoginValidate;
+import service.modules.OwnerService;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 import common.modules.Customer;
+import common.modules.Owner;
 import common.modules.User;
 import common.util.DartConstants;
 
@@ -26,15 +28,18 @@ public class Login extends ActionSupport implements ServletRequestAware, Servlet
 	   private User loginUser;
 	   private LoginValidate loginValidate;
 	   private CustomerService customerService;
+	   private OwnerService ownerService;
 	   private Customer customer;
+	   private Owner owner;
 	   
 	   public Login(){
 		   
 	   }
 	
-	public Login(LoginValidate loginValidate, CustomerService customerService) {
+	public Login(LoginValidate loginValidate, CustomerService customerService, OwnerService ownerService) {
 		this.loginValidate = loginValidate;
 		this.customerService = customerService;
+		this.ownerService = ownerService;
 	}
 
 	public LoginValidate getLoginValidate() {
@@ -60,7 +65,7 @@ public class Login extends ActionSupport implements ServletRequestAware, Servlet
         		customer = customerService.getCustomer(loginUser.getEmailAddress());
         	}
         	else{
-        		//get the Owner
+        		owner = ownerService.getOwner(loginUser.getEmailAddress()); 
         	}
         	return checkValidation;
         	
@@ -106,6 +111,22 @@ public class Login extends ActionSupport implements ServletRequestAware, Servlet
 
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
+	public OwnerService getOwnerService() {
+		return ownerService;
+	}
+
+	public void setOwnerService(OwnerService ownerService) {
+		this.ownerService = ownerService;
 	}
 
 }

@@ -36,8 +36,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public int updateOrderStatus(int orderId, int statusId) throws Exception {
-		return orderDao.updateOrderStatus(orderId, statusId);
+	public int updateOrderStatus(int orderId, int statusId, String comments) throws Exception {
+		return orderDao.updateOrderStatus(orderId, statusId, comments);
 	}
 
 	@Override

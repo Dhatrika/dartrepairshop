@@ -9,6 +9,7 @@
 	<bean id="loginWeb" class="web.action.Login" >
 		<constructor-arg ref="loginValidate"></constructor-arg>
 		<constructor-arg ref="customerService"></constructor-arg>
+		<constructor-arg ref="ownerService"></constructor-arg>
 	</bean>
 	
 	 <bean id="homeWeb" class="web.action.Home" >

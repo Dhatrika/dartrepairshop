@@ -19,16 +19,12 @@
 		var url = "./addOrder.action?customerId=" + customerId.value;
 		window.open(url,"_blank");
 	}
+
+	function loadProfile(){
+		var url = "./loadProfile.action?customerId=" + customerId.value;
+		window.open(url,"_blank");
+	}
 	
-	 /* $(".showAllOrders").click(function() {
-	    var productLink = $(this).find("a");
-
-	    
-	    productLink.attr("href", url);
-	    window.open(productLink.attr("href"));
-
-	    return false;
-	  }); */
 </script>
 
 </head>
@@ -38,6 +34,7 @@
 <s:hidden id="customerId" name="customer.customerId"/>
 
 <ul>
+<li><a id="showDetails" href="javascript:loadProfile();">Edit Profile</a></li>
 <li><a id="showAllOrders" href="javascript:showAllOrders();">Show Orders</a></li>
 <li><a id="addOrder" href="javascript:addOrder();">Place New Order</a></li>
 <li><a id="logout" href="logout.jsp">Logout</a></li>

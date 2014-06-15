@@ -1,5 +1,6 @@
 package web.action;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	   private List<Status> partialStatusList;
 	   private CustomerService customerService;
 	   List<PaymentInfo> paymentInfoList;
+	   private Boolean ownerRelated;
+	   private String orderStatus;
+	   private String resultCheck;
 
 	   	@Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -83,6 +87,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			orderPart = new Part();
 			String custrId = request.getParameter("customerId");
 			customerId = Integer.valueOf(custrId);
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			partsList = referenceData.getPartsList();
 			itemsList = referenceData.getItems();
 			statusList = referenceData.getStatuses();
@@ -92,6 +98,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		public String loadOrder() throws Exception{
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			completeOrder = orderService.getCompleteOrder(orderId);
 			statusList = referenceData.getStatuses();
 			partialStatusList = new ArrayList<Status>();
@@ -104,6 +112,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String saveNewOrder() throws Exception{
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			completeOrder.setCustomerId(customerId);
 			completeOrder.setComments("Placed");
 			int statusId = 0;
@@ -131,13 +141,18 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		
 		
 		public String saveCustomerExistingOrder() throws Exception{
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			int ordId = completeOrder.getOrderId();
 			int statusId = completeOrder.getStatusId();
-			orderId = orderService.updateOrderStatus(ordId, statusId);
+			String comments = completeOrder.getComments();
+			orderId = orderService.updateOrderStatus(ordId, statusId, comments);
 			return SUCCESS;
 		}
 		
 		public String loadPayment() throws Exception{
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
 			String custId = request.getParameter("customerId");
@@ -147,6 +162,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String makePayment() throws Exception{
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
 			String custId = request.getParameter("customerId");
@@ -161,6 +178,19 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			}
 			orderService.updateOrderPaymentInfo(orderId,paymentId,statusId);
 			return SUCCESS;
+		}
+		
+		public String loadSearchOrders() throws Exception{
+			orderStatus = "";
+			resultCheck = "";
+			statusList = referenceData.getStatuses();
+			return SUCCESS;			
+		}
+		
+		public String searchOrders() throws Exception{
+			statusList = referenceData.getStatuses();
+			resultCheck = Double.toString(Math.random());
+			return SUCCESS;	
 		}
 
 		public List<Part> getPartsList() {
@@ -238,5 +268,29 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 
 		public void setPaymentInfoList(List<PaymentInfo> paymentInfoList) {
 			this.paymentInfoList = paymentInfoList;
+		}
+
+		public Boolean getOwnerRelated() {
+			return ownerRelated;
+		}
+
+		public void setOwnerRelated(Boolean ownerRelated) {
+			this.ownerRelated = ownerRelated;
+		}
+
+		public String getOrderStatus() {
+			return orderStatus;
+		}
+
+		public void setOrderStatus(String orderStatus) {
+			this.orderStatus = orderStatus;
+		}
+
+		public String getResultCheck() {
+			return resultCheck;
+		}
+
+		public void setResultCheck(String resultCheck) {
+			this.resultCheck = resultCheck;
 		}
 }

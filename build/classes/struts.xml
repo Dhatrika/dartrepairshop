@@ -16,17 +16,31 @@
     		<action name="showAllOrders" class="customerWeb" method="showAllOrders">
       			<result name="success">/showallorders.jsp</result>
     		</action>
+    		
+    		<action name="loadProfile" class="customerWeb" method="loadProfile">
+      			<result name="success">/customerProfile.jsp</result>
+    		</action>
+    		
+    		 <action name="showAllCustomers" class="customerWeb" method="showAllCustomers">
+      			<result name="success">/showAllCustomers.jsp</result>
+    		</action>
+    		
+    		 <action name="saveCustomerInfo" class="customerWeb" method="saveCustomerInfo">
+      			<result name="success" type="redirect">
+				loadProfile.action?customerId=${customerId}&amp;ownerRelated=${ownerRelated}</result>
+    		</action>
+    		
     		<action name="addOrder" class="orderWeb" method="addOrder">
       			<result name="success">/addOrder.jsp</result>
     		</action>  
     		 <action name="saveNewOrder" class="orderWeb" method="saveNewOrder">
       			<result name="success" type="redirect">
-				loadOrder.action?orderId=${orderId}</result>
+				loadOrder.action?orderId=${orderId}&amp;ownerRelated=${ownerRelated}</result>
     		</action>  
     		
     		<action name="saveCustomerExistingOrder" class="orderWeb" method="saveCustomerExistingOrder">
       			<result name="success" type="redirect">
-				loadOrder.action?orderId=${orderId}</result>
+				loadOrder.action?orderId=${orderId}&amp;ownerRelated=${ownerRelated}</result>
     		</action> 
     		
     		<action name="loadPayment" class="orderWeb" method="loadPayment">
@@ -35,13 +49,20 @@
     		</action> 
     		<action name="makePayment" class="orderWeb" method="makePayment">
       			<result name="success" type="redirect">
-				loadOrder.action?orderId=${orderId}</result>
+				loadOrder.action?orderId=${orderId}&amp;ownerRelated=${ownerRelated}</result>
     		</action> 
-    		
     		
     		<action name="loadOrder" class="orderWeb" method="loadOrder">
       			<result name="success">/showorderparts.jsp</result>
-    		</action>   		
+    		</action>  
+    		
+    		 <action name="loadSearchOrders" class="orderWeb" method="loadSearchOrders">
+      			<result name="success">/searchOrders.jsp</result>
+    		</action>   
+    		 <action name="searchOrders" class="orderWeb" method="searchOrders">
+    		 	<result name="success">/searchOrders.jsp</result>
+    		</action>   
+    				
   	</package>
 
 </struts>

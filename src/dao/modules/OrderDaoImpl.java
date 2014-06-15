@@ -434,7 +434,7 @@ public class OrderDaoImpl implements OrderDao{
 	
 
 	@Override
-	public int updateOrderStatus(int orderId,int statusId) throws Exception {
+	public int updateOrderStatus(int orderId,int statusId,String comments) throws Exception {
 		
 		Statement cs = null;
 		PreparedStatement ps = null;
@@ -452,9 +452,10 @@ public class OrderDaoImpl implements OrderDao{
 				
 			    connection.setAutoCommit(false);
 			    
-			    ps = connection.prepareStatement("UPDATE CustomerOrder SET statusId = ? WHERE customerOrderId = ?");
+			    ps = connection.prepareStatement("UPDATE CustomerOrder SET statusId = ?,comments = ? WHERE customerOrderId = ?");
 			    ps.setInt(1, statusId);
-			    ps.setInt(2, orderId);
+			    ps.setString(2, comments);
+			    ps.setInt(3, orderId);
 			    ps.executeUpdate();
 				
 				tobeReturned = orderId;
