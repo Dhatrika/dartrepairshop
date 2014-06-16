@@ -22,6 +22,7 @@ public class Order {
 	private Boolean isPaid;
 	private Integer paidInt;
 	private String paymentInfo;
+	private String customerName;
 	
 	public Integer getOrderId() {
 		return orderId;
@@ -130,6 +131,12 @@ public class Order {
 	}
 	public void setPaymentInfo(String paymentInfo) {
 		this.paymentInfo = paymentInfo;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 	public Order(){
 		

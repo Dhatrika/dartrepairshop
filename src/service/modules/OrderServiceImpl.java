@@ -1,5 +1,7 @@
 package service.modules;
 
+import java.util.List;
+
 import common.modules.Order;
 import dao.modules.OrderDao;
 
@@ -44,6 +46,12 @@ public class OrderServiceImpl implements OrderService{
 	public int updateOrderPaymentInfo(int orderId, int paymentId, int statusId)
 			throws Exception {
 		return orderDao.updateOrderPaymentInfo(orderId, paymentId, statusId);
+	}
+
+	@Override
+	public List<Order> searchOrders(String orderDate, String status,
+			String customerName) throws Exception {
+		return orderDao.searchOrders(orderDate, status, customerName);		
 	}
 	
 	

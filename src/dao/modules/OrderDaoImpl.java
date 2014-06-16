@@ -29,7 +29,7 @@ public class OrderDaoImpl implements OrderDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo FROM AllOrders WHERE customerId = '" + customerId + "'");
+	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo,customerName FROM AllOrders WHERE customerId = '" + customerId + "'");
 				if(rs != null){
 					while(rs.next()){
 						Order ord = new Order();
@@ -59,6 +59,7 @@ public class OrderDaoImpl implements OrderDao{
 							ord.setPaidInfo("Yes");
 						}
 						ord.setPaymentInfo(rs.getString(12));
+						ord.setCustomerName(rs.getString(13));
 						allOrders.add(ord);
 					}
 				}
@@ -100,7 +101,7 @@ public class OrderDaoImpl implements OrderDao{
 
 			if (connection != null) {
 				
-	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo FROM AllOrders WHERE customerOrderId = '" + orderId + "'");
+	            rs = cs.executeQuery("SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo,customerName FROM AllOrders WHERE customerOrderId = '" + orderId + "'");
 				if(rs != null){
 					while(rs.next()){
 						ord.setCustomerId(rs.getInt(1));
@@ -129,6 +130,7 @@ public class OrderDaoImpl implements OrderDao{
 							ord.setPaidInfo("Yes");
 						}
 						ord.setPaymentInfo(rs.getString(12));
+						ord.setCustomerName(rs.getString(13));
 					}
 				}
 				
@@ -537,6 +539,94 @@ public class OrderDaoImpl implements OrderDao{
 					rs.close();
 				if(cs != null)
 					cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+	}
+
+	@Override
+	public List<Order> searchOrders(String orderDate, String status,
+			String customerName) throws Exception {
+		List<Order> allOrders = new ArrayList<Order>();
+		Statement cs = null;
+        ResultSet rs = null;
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+			cs = connection.createStatement();
+
+			if (connection != null) {
+				
+				String queryTobeExecuted = "SELECT customerId,customerOrderId,itemName,OrderDate,statusName,ratingName,actualCost,Comments,priority,statusId,isPaid,totalInfo,customerName FROM AllOrders WHERE ";
+				queryTobeExecuted = queryTobeExecuted + "OrderDate >= '" + orderDate + "'";
+				if(status != null){
+					if(!(status.equals("All"))){
+						queryTobeExecuted = queryTobeExecuted + " AND statusName = '" + status + "'";
+					}
+				}
+				if(customerName != null){
+					if(customerName.length() > 0){
+						if(customerName != ""){
+							queryTobeExecuted = queryTobeExecuted + " AND customerName LIKE '%" + customerName + "%'";
+						}
+					}
+				}
+				
+				
+				
+	            rs = cs.executeQuery(queryTobeExecuted);
+				if(rs != null){
+					while(rs.next()){
+						Order ord = new Order();
+						ord.setCustomerId(rs.getInt(1));
+						ord.setOrderId(rs.getInt(2));
+						ord.setItemName(rs.getString(3));
+						ord.setOrderDate(rs.getString(4));
+						ord.setStatusName(rs.getString(5));
+						ord.setRatingName(rs.getString(6));
+						ord.setActualCost(rs.getDouble(7));
+						ord.setComments(rs.getString(8));
+						int priority = rs.getInt(9);
+						if(priority == 0)
+						{
+							ord.setPriority("No");
+						}
+						else{
+							ord.setPriority("Yes");
+						}
+						ord.setStatusId(rs.getInt(10));
+						int paidInfo = rs.getInt(11);
+						if(paidInfo == 0)
+						{
+							ord.setPaidInfo("No");
+						}
+						else{
+							ord.setPaidInfo("Yes");
+						}
+						ord.setPaymentInfo(rs.getString(12));
+						ord.setCustomerName(rs.getString(13));
+						allOrders.add(ord);
+					}
+				}
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+			
+			return allOrders;
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database" + e.getMessage());
+		}
+		finally{
+			try {
+				if(rs != null)
+				rs.close();
+				if(cs != null)
+				cs.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 			}

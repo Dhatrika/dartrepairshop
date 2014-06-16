@@ -42,7 +42,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	   List<PaymentInfo> paymentInfoList;
 	   private Boolean ownerRelated;
 	   private String orderStatus;
-	   private String resultCheck;
+	   private String orderDate;
+	   private List<Order> allOrders;
 
 	   	@Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -182,14 +183,22 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		
 		public String loadSearchOrders() throws Exception{
 			orderStatus = "";
-			resultCheck = "";
 			statusList = referenceData.getStatuses();
+			Status st = new Status();
+			st.setStatusId(-1);
+			st.setStatusName("All");
+			statusList.add(st);
+			orderDate = "01/01/2014";
+			ownerRelated = true;
+			allOrders = new ArrayList<Order>();
 			return SUCCESS;			
 		}
 		
 		public String searchOrders() throws Exception{
 			statusList = referenceData.getStatuses();
-			resultCheck = Double.toString(Math.random());
+			String ownerRelatedString = request.getParameter("ownerRelated");
+			ownerRelated = Boolean.valueOf(ownerRelatedString);
+			allOrders = orderService.searchOrders(orderDate, orderStatus, null);
 			return SUCCESS;	
 		}
 
@@ -286,11 +295,19 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			this.orderStatus = orderStatus;
 		}
 
-		public String getResultCheck() {
-			return resultCheck;
+		public String getOrderDate() {
+			return orderDate;
 		}
 
-		public void setResultCheck(String resultCheck) {
-			this.resultCheck = resultCheck;
+		public void setOrderDate(String orderDate) {
+			this.orderDate = orderDate;
+		}
+
+		public List<Order> getAllOrders() {
+			return allOrders;
+		}
+
+		public void setAllOrders(List<Order> allOrders) {
+			this.allOrders = allOrders;
 		}
 }

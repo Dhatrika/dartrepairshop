@@ -9,6 +9,7 @@
 <LINK media="screen" href="common.css" type="text/css" rel="STYLESHEET"></LINK>
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
 <script type="text/javascript">
+var statusIdkey = 0;
 function validate(){
 	
 	var selectedValue = $("#orderStatusId option:selected").text();
@@ -22,14 +23,34 @@ function makePayment(orderId, customerId){
 	var url = "./loadPayment.action?customerId=" + customerId + "&orderId="+orderId;
 	window.open(url,"_self");
 } 
+function openCustomer(custId){
+	var url = "./loadProfile.action?customerId=" + custId;
+	window.open(url,"_blank");
+}
+function onstatuschange(){
+	var selectedValue = $("#completeOrderPaidInfo").val();
+	if(selectedValue == "Yes")
+	{
+		alert("Status cannot be changed as the payment is already done");
+		$("#orderStatusId").get(0).selectedIndex = statusIdkey;
+	}
+}
+
+function setStatusIdValue(){
+	statusIdkey = $("#orderStatusId option:selected").index();
+}
 </script>
 </head>
-<body>
+<body onload="setStatusIdValue();">
 
 <form name="showOrderForm" id="showOrderForm" action="saveCustomerExistingOrder.action" method="post">
 <s:hidden id="ownerRelated" name="ownerRelated"/>
+<s:hidden id="completeOrderPaidInfo" name="completeOrder.paidInfo"/>
+<s:hidden id="completeOrderStatusName" name="completeOrder.statusName"/>
 <table>
 <tr><td>OrderId</td><td><s:property value="completeOrder.orderId"/></td> <td></td> </tr>
+<tr><td>Customer</td>  <td><a id="openCustomer" href="javascript:openCustomer(<s:property value="completeOrder.customerId"/>);"><s:property
+			value="completeOrder.customerName" /></a></td> <td></td>  </tr>
 	<tr>	<td>Item Repaired</td> <td><s:property value="completeOrder.itemName"/></td> <td></td> </tr>
 
 		<tr> <td>Order Date</td> <td><s:property value="completeOrder.orderDate"/></td> <td></td> </tr>
@@ -42,7 +63,7 @@ function makePayment(orderId, customerId){
 													id="orderStatusId"
 													value="completeOrder.statusId"
 													name="completeOrder.statusId"
-													cssStyle="width:100px;">
+													cssStyle="width:100px;" onchange="onstatuschange();">
 												</s:select></td><td></td></tr>
 
 </s:if>

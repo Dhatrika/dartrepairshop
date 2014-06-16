@@ -15,6 +15,11 @@ function openOrder(orderId){
 	window.open(url,"_blank");
 }
 
+function openCustomer(custId){
+	var url = "./loadProfile.action?customerId=" + custId;
+	window.open(url,"_blank");
+}
+
 </script>
 </head>
 <body>
@@ -26,6 +31,7 @@ function openOrder(orderId){
 <table>
 <tr>
 		<td>OrderId</td>
+		<td>Customer</td>
 		<td>Item Repaired</td>
 
 		<td>Order Date</td>
@@ -39,6 +45,8 @@ function openOrder(orderId){
 	<tr>
 		<td><a id="openOrder" href="javascript:openOrder(<s:property value="orderId"/>);"><s:property
 			value="orderId" /></a></td>
+		<td><a id="openCustomer" href="javascript:openCustomer(<s:property value="customerId"/>);"><s:property
+			value="customerName" /></a></td>
 		<td><s:property
 			value="itemName" /></td>
 
