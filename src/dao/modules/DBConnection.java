@@ -16,7 +16,7 @@ public class DBConnection {
 		Connection connection = null;
 		try {
 			
-			String connectionString =  "jdbc:sqlite:D:\\Nikki\\dartdb\\dartdb.db"; 
+			String connectionString =  "jdbc:sqlite:C:\\dartdb\\dartdb.db"; 
 			connection = DriverManager.getConnection(connectionString);
  
 		} catch (SQLException e) {
