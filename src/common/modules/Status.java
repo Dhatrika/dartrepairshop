@@ -21,4 +21,28 @@ public class Status {
 		
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Status other = (Status) obj;
+		if (statusId == null) {
+			if (other.statusId != null)
+				return false;
+		} else if (!statusId.equals(other.statusId))
+			return false;
+		if (statusName == null) {
+			if (other.statusName != null)
+				return false;
+		} else if (!statusName.equals(other.statusName))
+			return false;
+		return true;
+	}
+
+	
+	
 }

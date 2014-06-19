@@ -263,7 +263,11 @@ public class CustomerDaoImpl implements CustomerDao{
 				}
 				if(primaryPaymentInfoId != null){
 					if(primaryPaymentInfoId != 0){
-						//don't do anything						
+
+						ps = connection.prepareStatement("UPDATE CustomerPaymentInfo SET ISPRIMARY = 0 WHERE CustomerId = " + customerId);
+						ps.executeUpdate();
+						ps = connection.prepareStatement("UPDATE CustomerPaymentInfo SET ISPRIMARY = 1 WHERE CustomerId = " + customerId + " AND customerPaymentInfoId  = " + primaryPaymentInfoId);
+						ps.executeUpdate();						
 					}
 				}
 				else{

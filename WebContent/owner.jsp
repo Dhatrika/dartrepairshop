@@ -19,6 +19,14 @@
 		var url = "./showAllCustomers.action";
 		window.open(url,"_blank");
 	}
+	function logOut(){
+		var url = "./logOut.action";
+		window.open(url,"_self");
+	}
+	function resetPassword(){
+		var url = "./resetPassword.action?userId=" + ownerId.value;
+		window.open(url,"_blank");
+	}
 </script>
 
 </head>
@@ -30,7 +38,8 @@
 <ul>
 <li><a id="searchOrders" href="javascript:searchOrders();">Search Orders</a></li>
 <li><a id="allCustomers" href="javascript:allCustomers();">Show All Customers</a></li>
-<li><a id="logout" href="logout.jsp">Logout</a></li>
+<li><a id="logout" href="javascript:logOut();">Logout</a></li>
+<li><a id="reset" href="javascript:resetPassword();">Reset Password</a></li>
 
 </ul>
 

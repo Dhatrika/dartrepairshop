@@ -28,24 +28,28 @@ public class LoginValidateImpl implements LoginValidate{
 	}
 
 	@Override
-	public String getPassword() throws Exception {
-		return(loginDao.getPassword());
+	public Integer getEmailAddress(String emailAddress) throws Exception {
+		return loginDao.getEmailAddress(emailAddress);
 	}
 
 	@Override
-	public void savePassword(String newPassword) throws Exception {
-		loginDao.savePassword(newPassword);
+	public void saveEmailAddress(String emailAddress, int userId)
+			throws Exception {
+		loginDao.saveEmailAddress(emailAddress, userId);
 		
 	}
 
 	@Override
-	public String getEmailAddress() throws Exception {
-		return(loginDao.getEmailAddress());
+	public void savePassword(String pwd, int userId) throws Exception {
+		loginDao.savePassword(pwd, userId);
 	}
 
+
 	@Override
-	public void saveEmailAddress(String emailAddr) throws Exception {
-		loginDao.saveEmailAddress(emailAddr);
+	public String getUserEmailAddress(int userId) throws Exception {
+		return loginDao.getUserEmailAddress(userId);
 	}
+
+
 
 }

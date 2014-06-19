@@ -8,6 +8,12 @@
 <LINK media="screen" href="common.css" type="text/css" rel="STYLESHEET"></LINK>
 </head>
 <body>
-<h2>Error Occurred, Please contact the support team at support@dartsolutions.com!!</h2>
+<h3><p>
+System generated password has been generated and emailed to you. <br>
+It is recommended that you reset the password after you login with the new password. <br>
+System generated password will expire within 24 hours after it has been emailed. <br>
+In case of help, please contact the support team at support@dartsolutions.com!! <br>
+</p>
+</h3>
 </body>
 </html>

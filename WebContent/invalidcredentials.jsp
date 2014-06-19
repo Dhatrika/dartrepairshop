@@ -10,7 +10,8 @@
 </head>
 <body>
 <s:form method="post" action="home.action">
-<h2>Incorrect credentials, try again!</h2>
+<h2><p>Incorrect credentials, try again! <br>
+In case of help, please contact the support team at support@dartsolutions.com!!</p></h2>
 <s:submit type="submit" value="Home" name="Home" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 </s:form>
 </body>

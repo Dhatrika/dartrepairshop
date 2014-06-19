@@ -1,6 +1,5 @@
 package web.action;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import service.modules.ReferenceData;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import common.modules.Customer;
 import common.modules.Item;
 import common.modules.Order;
 import common.modules.Part;
@@ -44,6 +44,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	   private String orderStatus;
 	   private String orderDate;
 	   private List<Order> allOrders;
+	   private String customersList;
+	   private String searchCustomer;
 
 	   	@Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -97,6 +99,10 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String loadOrder() throws Exception{
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
 			String ownerRelatedString = request.getParameter("ownerRelated");
@@ -152,6 +158,10 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String loadPayment() throws Exception{
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        
 			String ownerRelatedString = request.getParameter("ownerRelated");
 			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			String ordId = request.getParameter("orderId");
@@ -163,6 +173,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String makePayment() throws Exception{
+	        
 			String ownerRelatedString = request.getParameter("ownerRelated");
 			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			String ordId = request.getParameter("orderId");
@@ -182,15 +193,37 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		}
 		
 		public String loadSearchOrders() throws Exception{
+			response.setHeader("Cache-Control", "no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setDateHeader("Expires", 0);
+	        
 			orderStatus = "";
 			statusList = referenceData.getStatuses();
 			Status st = new Status();
 			st.setStatusId(-1);
 			st.setStatusName("All");
-			statusList.add(st);
+			
+			if(!(statusList.contains(st))){
+				statusList.add(st);
+			}
+						
 			orderDate = "01/01/2014";
 			ownerRelated = true;
 			allOrders = new ArrayList<Order>();
+			searchCustomer = "";
+			customersList = "";
+			List<Customer> allCustomers = customerService.getAllCustomers();
+			int i = 1;
+			int len = allCustomers.size();
+			for( Customer ct : allCustomers){
+				if( i == (len)){
+					customersList += ct.getCustomerName();
+				}
+				else{
+					customersList += (ct.getCustomerName() + ",");
+				}
+				i = i+1;
+			}
 			return SUCCESS;			
 		}
 		
@@ -198,7 +231,8 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			statusList = referenceData.getStatuses();
 			String ownerRelatedString = request.getParameter("ownerRelated");
 			ownerRelated = Boolean.valueOf(ownerRelatedString);
-			allOrders = orderService.searchOrders(orderDate, orderStatus, null);
+			allOrders = orderService.searchOrders(orderDate, orderStatus, searchCustomer);
+			
 			return SUCCESS;	
 		}
 
@@ -309,5 +343,21 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 
 		public void setAllOrders(List<Order> allOrders) {
 			this.allOrders = allOrders;
+		}
+
+		public String getCustomersList() {
+			return customersList;
+		}
+
+		public void setCustomersList(String customersList) {
+			this.customersList = customersList;
+		}
+
+		public String getSearchCustomer() {
+			return searchCustomer;
+		}
+
+		public void setSearchCustomer(String searchCustomer) {
+			this.searchCustomer = searchCustomer;
 		}
 }

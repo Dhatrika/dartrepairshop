@@ -8,6 +8,9 @@
 <LINK media="screen" href="common.css" type="text/css" rel="STYLESHEET"></LINK>
 </head>
 <body>
-<h2>Error Occurred, Please contact the support team at support@dartsolutions.com!!</h2>
+<h2><p>
+Enter a valid emailAddress. In case of help, please contact the support team at support@dartsolutions.com!!
+</p>
+</h2>
 </body>
 </html>

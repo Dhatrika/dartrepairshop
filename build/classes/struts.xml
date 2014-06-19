@@ -5,14 +5,40 @@
 <struts>
 
   	<package name="default" extends="struts-default">
+  	
+  			<global-results>
+			<result name="error">error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+		
+		
     		<action name="login" class="loginWeb">
       			<result name="customer">/customer.jsp</result>
       			<result name="owner">/owner.jsp</result>
       			<result name="error">/invalidcredentials.jsp</result>
     		</action>
-    		<action name="home" class="homeWeb">
+    		<action name="home" class="loginWeb" method="home">
       			<result name="success">/login.jsp</result>
+      			<result name="login" type="redirect">login.action</result>
     		</action>
+    		<action name="logOut" class="loginWeb" method="logOut">
+      			<result name="success">/logout.jsp</result>
+    		</action>
+    		
+    		 <action name="resetPassword" class="loginWeb" method="resetPassword">
+      			<result name="success">/resetPassword.jsp</result>
+      			<result name="invalid">/invalidEmail.jsp</result>
+      			<result name="internal">/internalResetPassword.jsp</result>
+    		</action>
+    		
+    		 <action name="internalResetPassword" class="loginWeb" method="internalResetPassword">
+      			<result name="success" type="redirect">login.action</result>
+    		</action>
+    		
     		<action name="showAllOrders" class="customerWeb" method="showAllOrders">
       			<result name="success">/showallorders.jsp</result>
     		</action>

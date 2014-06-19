@@ -24,6 +24,14 @@
 		var url = "./loadProfile.action?customerId=" + customerId.value;
 		window.open(url,"_blank");
 	}
+	function logOut(){
+		var url = "./logOut.action";
+		window.open(url,"_self");
+	}
+	function resetPassword(){
+		var url = "./resetPassword.action?userId=" + customerId.value;
+		window.open(url,"_blank");
+	}
 	
 </script>
 
@@ -37,7 +45,8 @@
 <li><a id="showDetails" href="javascript:loadProfile();">Edit Profile</a></li>
 <li><a id="showAllOrders" href="javascript:showAllOrders();">Show Orders</a></li>
 <li><a id="addOrder" href="javascript:addOrder();">Place New Order</a></li>
-<li><a id="logout" href="logout.jsp">Logout</a></li>
+<li><a id="logout" href="javascript:logOut();">Logout</a></li>
+<li><a id="reset" href="javascript:resetPassword();">Reset Password</a></li>
 
 </ul>
 

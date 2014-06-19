@@ -22,6 +22,18 @@ function validate(){
 		return true;
 	}
 }
+
+function validateResetPassword(){
+	if(loginForm.loginUserEmailAddress.value == ''){
+		alert('Please enter valid emailAddress');
+				return false;
+	}
+	else{
+		var url = "./resetPassword.action?checkEmail=" + loginForm.loginUserEmailAddress.value;
+		window.open(url,"_blank");
+		return true;
+	}
+}
 </script>
 <body>
 
@@ -41,6 +53,9 @@ function validate(){
 <s:submit theme="simple" onclick="return validate();" type="submit" value="GO" name="GO" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 
 </form>
+
+<br>
+<input id="reset" onclick="return validateResetPassword();" value="Reset Password" type="button" style="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;">
 
 </body>
 </html>

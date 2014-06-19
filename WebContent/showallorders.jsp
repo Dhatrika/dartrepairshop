@@ -28,6 +28,7 @@ function openCustomer(custId){
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 
 
+<s:if test='allOrders.size() > 0'>	
 <table>
 <tr>
 		<td>OrderId</td>
@@ -64,6 +65,10 @@ function openCustomer(custId){
 	</tr>
 </s:iterator>
 </table>
+</s:if>
+<s:else>
+<h1>No orders have been placed yet.</h1>
+</s:else>
 
 
 </body>

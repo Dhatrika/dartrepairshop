@@ -1,6 +1,5 @@
 package dao.modules;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,156 +76,193 @@ public class LoginDaoImpl implements LoginDao{
 		
 	}
 	
-	@Override
-	public String getPassword() throws Exception{
-		String pwd = null;
-		
-		Connection connection = new DBConnection().getDBConnection();
-
-		if (connection != null) {
-			CallableStatement cs = null;
-            ResultSet rs = null;
-            cs = connection.prepareCall("SELECT PASSWORD FROM USERDETAILS");
-			cs.executeQuery();
-			rs = cs.getResultSet();
-			if(rs != null){
-				while(rs.next()){
-					pwd = rs.getString(1);
-				}
-			}
-		}
-		else{
-			throw new Exception("Cannot establish connection with the database");
-		}
-		
-		return pwd;
-		
-	}
 
 	@Override
-	public void savePassword(String newPassword) throws Exception {
-		Connection connection = new DBConnection().getDBConnection();
-		CallableStatement cs = null;
+	public void savePassword(String pwd,int userId) throws Exception {
+
+
+		Statement cs = null;
+		PreparedStatement ps = null;
         ResultSet rs = null;
-        PreparedStatement ps = null;
-        
-		if (connection != null) {
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+		
+			if (connection != null) {
+				
+				connection.setAutoCommit(false);
+				
+				cs = connection.createStatement();
+				
+				ps = connection.prepareStatement("UPDATE USER SET password = ? WHERE userId = ?");
+				ps.setString(1, pwd);
+			    ps.setInt(2, userId);
+				ps.executeUpdate();
+				
+				connection.commit();
+				
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+			
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database" + e.getMessage());
+		}
+		finally{
 			try {
-			
-			connection.setAutoCommit(false);
-			
-			
-			ps = connection.prepareStatement("UPDATE USERDETAILS SET PASSWORD = ?");
-			ps.setString(1, newPassword);
-			ps.executeUpdate();
-			connection.commit();
-			
-			
+				if(ps != null)
+					ps.close();
+				if(rs != null)
+					rs.close();
+				if(cs != null)
+					cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 			}
-			 catch (SQLException e) {
-					// TODO Auto-generated catch block
-					try {
-						connection.rollback();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						throw new Exception("Error committing the save statement");
-					}
-					throw new Exception("Error committing the save statement");
-					
-				}
-				finally{
-					try {
-						if(rs != null)
-						rs.close();
-						if(cs != null)
-						cs.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-					}
-					
-				}
-			
 		}
-		else{
-			throw new Exception("Cannot establish connection with the database");
-		}
+		
 		
 	}
 
 	@Override
-	public String getEmailAddress() throws Exception {
-		String emailaddr = null;
+	public Integer getEmailAddress(String emailAddress) throws Exception {
 		
-		Connection connection = new DBConnection().getDBConnection();
-
-		if (connection != null) {
-			CallableStatement cs = null;
-            ResultSet rs = null;
-            cs = connection.prepareCall("SELECT EMAILADDRESS FROM USERDETAILS");
-			cs.executeQuery();
-			rs = cs.getResultSet();
-			if(rs != null){
-				while(rs.next()){
-					emailaddr = rs.getString(1);
-				}
-			}
-		}
-		else{
-			throw new Exception("Cannot establish connection with the database");
-		}
 		
-		return emailaddr;
-
-	}
-
-	@Override
-	public void saveEmailAddress(String emailAddr) throws Exception {
-		
-		Connection connection = new DBConnection().getDBConnection();
-		CallableStatement cs = null;
+		Integer userId = null;
+		Statement cs = null;
         ResultSet rs = null;
-        PreparedStatement ps = null;
-        
-		if (connection != null) {
-			try {
-			
-			connection.setAutoCommit(false);
-			
-			
-			ps = connection.prepareStatement("UPDATE USERDETAILS SET EMAILADDRESS = ?");
-			ps.setString(1, emailAddr);
-			ps.executeUpdate();
-			connection.commit();
-			
-			
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+			cs = connection.createStatement();
+
+			if (connection != null) {
+				
+	            rs = cs.executeQuery("SELECT USERID FROM USER Where emailAddress = '" + emailAddress + "'");
+				if(rs != null){
+					while(rs.next()){
+						userId = rs.getInt(1);
+					}
+				}
 			}
-			 catch (SQLException e) {
-					// TODO Auto-generated catch block
-					try {
-						connection.rollback();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						throw new Exception("Error committing the save statement");
-					}
-					throw new Exception("Error committing the save statement");
-					
-				}
-				finally{
-					try {
-						if(rs != null)
-						rs.close();
-						if(cs != null)
-						cs.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-					}
-					
-				}
-			
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+
 		}
-		else{
+		catch(SQLException e){
 			throw new Exception("Cannot establish connection with the database");
+		}
+		finally{
+			try {
+				if(rs != null)
+				rs.close();
+				if(cs != null)
+				cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+
+		return userId;
+		
+	}
+
+	@Override
+	public void saveEmailAddress(String emailAddress,int userId) throws Exception {
+
+
+		Statement cs = null;
+		PreparedStatement ps = null;
+        ResultSet rs = null;
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+		
+			if (connection != null) {
+				
+				connection.setAutoCommit(false);
+				
+				cs = connection.createStatement();
+				
+				ps = connection.prepareStatement("UPDATE USER SET EMAILADDRESS = ? WHERE userId = ?");
+				ps.setString(1, emailAddress);
+			    ps.setInt(2, userId);
+				ps.executeUpdate();
+				
+				connection.commit();
+				
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+			
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database" + e.getMessage());
+		}
+		finally{
+			try {
+				if(ps != null)
+					ps.close();
+				if(rs != null)
+					rs.close();
+				if(cs != null)
+					cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
 		}
 	}
 
+	@Override
+	public String getUserEmailAddress(int userId) throws Exception {
+	
+		
+		String userEmail = null;
+		Statement cs = null;
+        ResultSet rs = null;
+		
+		Connection connection = new DBConnection().getDBConnection();
+		
+		try {
+			cs = connection.createStatement();
+
+			if (connection != null) {
+				
+	            rs = cs.executeQuery("SELECT EmailAddress FROM USER Where USERID = '" + userId + "'");
+				if(rs != null){
+					while(rs.next()){
+						userEmail = rs.getString(1);
+					}
+				}
+			}
+			else{
+				throw new Exception("Cannot establish connection with the database");
+			}
+
+		}
+		catch(SQLException e){
+			throw new Exception("Cannot establish connection with the database");
+		}
+		finally{
+			try {
+				if(rs != null)
+				rs.close();
+				if(cs != null)
+				cs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+
+		return userEmail;
+	}
 }

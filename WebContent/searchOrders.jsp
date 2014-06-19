@@ -32,6 +32,14 @@ function openCustomer(custId){
 	window.open(url,"_blank");
 }
 
+function setAutoComplete(){
+	var catList = customersList.value; 
+	var availableTags = catList.split(",");
+	$( "#searchCustomer" ).autocomplete({
+	      source: availableTags
+	    });
+}
+
 </script>
  <script>
   $(function() {
@@ -39,10 +47,11 @@ function openCustomer(custId){
   });
   </script>
 </head>
-<body>
+<body onload="setAutoComplete();">
 
 <form name="searchOrderForm" id="searchOrderForm" action="searchOrders.action" method="post">
 <s:hidden id="ownerRelated" name="ownerRelated"/>
+<s:hidden id="customersList" name="customersList"/>
 <table>
 	<tr> <td>Order Status</td>
 	<td><s:select list="statusList" listKey="statusName" theme="simple"
@@ -53,6 +62,7 @@ function openCustomer(custId){
 													cssStyle="width:100px;">
 												</s:select></td><td></td></tr>
 <tr><td>Order Date On/After</td><td><s:textfield theme="simple" name='orderDate' id="orderDate"/></td></tr>
+<tr><td>Customer</td><td><s:textfield theme="simple" name='searchCustomer' id="searchCustomer"/></td></tr>
 
 </table>
 <s:submit theme="simple" onclick="return searchOrders();" type="submit" value="SEARCH" name="SEARCH" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>

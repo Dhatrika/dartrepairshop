@@ -20,5 +20,9 @@ public class DartConstants {
 		Date date = Calendar.getInstance().getTime();
 		return DateFormatUtils.format(date, DEFAULT_DATE_FORMAT);
 	}
+	
+	public static final String FROMEMAILID = "ndhatrikTest@gmail.com";
+	public static final String FROMEMAILPWD = "ndh@trikTest";
+	public static final String SUBJECT = "DART: System generated password";
 
 }
