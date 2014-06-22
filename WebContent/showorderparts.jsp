@@ -109,6 +109,7 @@ function setStatusIdValue(){
 <tr> </tr>
 <tr> </tr>
 </table>
+<br>
 <table>
 <tr> <td> <h1> Order Parts are: </h1></td> </tr>
 	<tr>
@@ -130,6 +131,7 @@ function setStatusIdValue(){
 
 
 </table>
+<br>
 
 <s:if test="ownerRelated">
 <s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>

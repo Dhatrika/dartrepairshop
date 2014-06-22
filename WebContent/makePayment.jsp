@@ -38,7 +38,7 @@ function validate(){
 													cssStyle="width:100px;">
 												</s:select></td> </tr>
 </table>
-
+<br>
 <s:submit theme="simple" onclick="return validate();" type="submit" value="PAY" name="PAY" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 
 </form>

@@ -1,10 +1,21 @@
 body
 {
-	/*background:url(Leather2.jpg);*/
+	background:url(Leather2.jpg);
 	background-color:#EFE4B0;
 }
 
 *{
 	font-family:Verdana;
 	font-size:14px;
+}
+
+table{
+	
+	border-color:#DBE2E4;
+	background-color:#f7f7f8;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:2px solid #999999;
+	
 }

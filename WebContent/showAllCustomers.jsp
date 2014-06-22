@@ -22,7 +22,7 @@ function openCustomer(customerId){
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 
 <table>
-<tr>
+<tr style="font-weight:bold;">
 		<td>CustomerId</td>
 		<td>Customer Name</td>
 		<td>Email</td>

@@ -93,6 +93,8 @@ function showAllOrders(){
 
 </table>
 
+<br>
+
 <table>
 
 <tr><td><h1>Address Details:</h1></td><td></td></tr>
@@ -102,6 +104,8 @@ function showAllOrders(){
 <tr><td>PostalCode</td><td><s:textfield theme="simple" name='customer.addr.postalCode' id="postalCode"/></td></tr>
 
 </table>
+
+<br>
 
 <table>
 
@@ -117,7 +121,7 @@ function showAllOrders(){
 <s:submit theme="simple" onclick="return saveCustomerInfo();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 
 </form>
-<br>
+
 <br>
 
 <s:if test = "ownerRelated">

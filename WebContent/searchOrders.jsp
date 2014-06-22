@@ -69,7 +69,7 @@ function setAutoComplete(){
 
 <s:if test='allOrders.size() > 0'>	
 <table>
-<tr>
+<tr style="font-weight:bold;">
 		<td>OrderId</td>
 		<td>Customer</td>
 		<td>Item Repaired</td>
