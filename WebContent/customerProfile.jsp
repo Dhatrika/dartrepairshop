@@ -10,7 +10,11 @@
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
 <script language="javascript" type="text/javascript" src="util.js"></script>
 <script type="text/javascript">
-
+function saveAndClose(){
+	closeWindow.value = "true";
+	saveCustomerInfo();
+	window.close();
+}
 function saveCustomerInfo(){
 	if(saveCustomerForm.phoneNumber.value == '' || !IsNumeric(saveCustomerForm.phoneNumber.value)){
 		alert('Please enter valid Phone Number, should contain only numeric values');
@@ -84,6 +88,7 @@ function showAllOrders(){
 <form name="saveCustomerForm" id="saveCustomerForm" action="saveCustomerInfo.action" method="post">
 <s:hidden id="customerId" name="customer.customerId"/>
 <s:hidden id="ownerRelated" name="ownerRelated"/>
+<s:hidden id="closeWindow" name="closeWindow"/>
 
 <h3>Customer Details:</h3>
 
@@ -121,6 +126,7 @@ function showAllOrders(){
 <br>
 
 <s:submit theme="simple" onclick="return saveCustomerInfo();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
+<s:submit theme="simple" onclick="return saveAndClose();" type="submit" value="SAVE + CLOSE" name="SAVECLOSE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 
 </form>
 

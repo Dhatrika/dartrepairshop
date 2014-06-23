@@ -46,6 +46,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	   private List<Order> allOrders;
 	   private String customersList;
 	   private String searchCustomer;
+	   private Boolean closeWindow;
 
 	   	@Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -103,6 +104,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 	        response.setHeader("Pragma", "no-cache");
 	        response.setDateHeader("Expires", 0);
 	        
+	        closeWindow = false;
 			String ordId = request.getParameter("orderId");
 			orderId = Integer.valueOf(ordId);
 			String ownerRelatedString = request.getParameter("ownerRelated");
@@ -148,13 +150,20 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		
 		
 		public String saveCustomerExistingOrder() throws Exception{
+			closeWindow = false;
 			String ownerRelatedString = request.getParameter("ownerRelated");
 			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			int ordId = completeOrder.getOrderId();
 			int statusId = completeOrder.getStatusId();
 			String comments = completeOrder.getComments();
 			orderId = orderService.updateOrderStatus(ordId, statusId, comments);
-			return SUCCESS;
+			if(!(closeWindow))
+			{ 
+				return SUCCESS;
+			}
+			else{
+				return "";
+			}
 		}
 		
 		public String loadPayment() throws Exception{
@@ -364,5 +373,13 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 
 		public void setSearchCustomer(String searchCustomer) {
 			this.searchCustomer = searchCustomer;
+		}
+
+		public Boolean getCloseWindow() {
+			return closeWindow;
+		}
+
+		public void setCloseWindow(Boolean closeWindow) {
+			this.closeWindow = closeWindow;
 		}
 }

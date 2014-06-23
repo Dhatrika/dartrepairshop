@@ -24,6 +24,7 @@ function validate(){
 }
 
 function validateResetPassword(){
+	if (confirm('Password will be reset. Are you sure?')) {
 	if(loginForm.loginUserEmailAddress.value == ''){
 		alert('Please enter valid emailAddress');
 				return false;
@@ -32,6 +33,10 @@ function validateResetPassword(){
 		var url = "./resetPassword.action?checkEmail=" + loginForm.loginUserEmailAddress.value;
 		window.open(url,"_blank");
 		return true;
+	}
+	}
+	else{
+		return false;
 	}
 }
 </script>

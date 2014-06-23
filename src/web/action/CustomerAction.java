@@ -29,6 +29,7 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	   private Customer customer;
 	   List<Customer> allCustomers;
 	   private Boolean ownerRelated;
+	   private Boolean closeWindow;
 	   
 	   @Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -86,7 +87,7 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	        
 	        customerId = custId;
 	        customer = customerService.getCustomerInfo(customerId);
-	        
+	        closeWindow = false;
 			return SUCCESS;
 		}
 		
@@ -99,8 +100,12 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	        customerId = customer.getCustomerId();
 	        customerService.updateCustomerInfo(customer, customerId);
 	        customer = customerService.getCustomerInfo(customerId);
-	        
-			return SUCCESS;
+	        if(!(closeWindow)){
+	        	return SUCCESS;
+	        }
+	        else{
+	        	return "";
+	        }
 		}
 		
 		public String showAllCustomers() throws Exception{
@@ -168,6 +173,14 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 
 		public void setOwnerRelated(Boolean ownerRelated) {
 			this.ownerRelated = ownerRelated;
+		}
+
+		public Boolean getCloseWindow() {
+			return closeWindow;
+		}
+
+		public void setCloseWindow(Boolean closeWindow) {
+			this.closeWindow = closeWindow;
 		}
 	
 

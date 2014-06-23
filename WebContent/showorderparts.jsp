@@ -10,6 +10,11 @@
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
 <script type="text/javascript">
 var statusIdkey = 0;
+function saveAndClose(){
+	closeWindow.value = "true";
+	validate();
+	window.close();
+}
 function validate(){
 	
 	var selectedValue = $("#orderStatusId option:selected").text();
@@ -42,9 +47,11 @@ function setStatusIdValue(){
 </script>
 </head>
 <body onload="setStatusIdValue();">
+
 <h1>Order Details: </h1>
 <form name="showOrderForm" id="showOrderForm" action="saveCustomerExistingOrder.action" method="post">
 <s:hidden id="ownerRelated" name="ownerRelated"/>
+<s:hidden id="closeWindow" name="closeWindow"/>
 <s:hidden id="completeOrderPaidInfo" name="completeOrder.paidInfo"/>
 <s:hidden id="completeOrderStatusName" name="completeOrder.statusName"/>
 <table>
@@ -135,11 +142,13 @@ function setStatusIdValue(){
 
 <s:if test="ownerRelated">
 <s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
+<s:submit theme="simple" onclick="return saveAndClose();" type="submit" value="SAVE + CLOSE" name="SAVECLOSE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 </s:if>
 <s:else>
 
 <s:if test="completeOrder.statusName == 'Placed' || completeOrder.statusName == 'Cancelled'">
 <s:submit theme="simple" onclick="return validate();" type="submit" value="SAVE" name="SAVE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
+<s:submit theme="simple" onclick="return saveAndClose();" type="submit" value="SAVE + CLOSE" name="SAVECLOSE" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
 </s:if>
 
 </s:else>
