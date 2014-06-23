@@ -42,7 +42,7 @@ function setStatusIdValue(){
 </script>
 </head>
 <body onload="setStatusIdValue();">
-
+<h1>Order Details: </h1>
 <form name="showOrderForm" id="showOrderForm" action="saveCustomerExistingOrder.action" method="post">
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 <s:hidden id="completeOrderPaidInfo" name="completeOrder.paidInfo"/>

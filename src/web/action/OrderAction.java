@@ -235,6 +235,11 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 			
 			return SUCCESS;	
 		}
+		
+		public String showInventory() throws Exception{
+			partsList = referenceData.getPartsList();
+			return SUCCESS;	
+		}
 
 		public List<Part> getPartsList() {
 			return partsList;

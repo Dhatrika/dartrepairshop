@@ -85,6 +85,8 @@ function showAllOrders(){
 <s:hidden id="customerId" name="customer.customerId"/>
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 
+<h3>Customer Details:</h3>
+
 <table>
 <tr><td>Title</td><td><s:textfield theme="simple" name='customer.title' id="customerTitle"/></td></tr>
 <tr><td>Name</td><td><s:textfield theme="simple" name='customer.customerName' id="customerName"/></td></tr>

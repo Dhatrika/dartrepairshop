@@ -8,39 +8,32 @@
 <title>DART</title>
 <LINK media="screen" href="common.css" type="text/css" rel="STYLESHEET"></LINK>
 <script language="javascript" type="text/javascript" src="jquery-1.7.1.js"></script>
-<script type="text/javascript">
-
-function openCustomer(customerId){
-	var url = "./loadProfile.action?customerId=" + customerId + "&ownerRelated="+ ownerRelated.value;
-	window.open(url,"_blank");
-}
-
-</script>
 </head>
 <body>
 
-<s:hidden id="ownerRelated" name="ownerRelated"/>
-<h1>All customers in the system are:</h1>
+<s:if test='partsList.size() > 0'>	
+<h1>Parts available for repair are: </h1>
 <table>
 <tr style="font-weight:bold;">
-		<td>CustomerId</td>
-		<td>Customer Name</td>
-		<td>Email</td>
-		<td>Phone</td>
+		<td>Part Name</td>
+		<td>Brand</td>
+		<td>Price</td>
 </tr>
-<s:iterator value="allCustomers" status="rowstatus1">
+<s:iterator value="partsList" status="rowstatus1">
 	<tr>
-		<td><a id="openCustomer" href="javascript:openCustomer(<s:property value="customerId"/>);"><s:property
-			value="customerId" /></a></td>
 		<td><s:property
-			value="customerName" /></td>
+			value="partName" /></td>
 		<td><s:property
-			value="emailAddress" /></td>
+			value="brand" /></td>
 		<td><s:property
-			value="phoneNumber" /></td>
+			value="price" /></td>
 	</tr>
 </s:iterator>
 </table>
+</s:if>
+<s:else>
+<h1>None of the parts are available.</h1>
+</s:else>
 
 
 </body>

@@ -88,6 +88,10 @@
     		 <action name="searchOrders" class="orderWeb" method="searchOrders">
     		 	<result name="success">/searchOrders.jsp</result>
     		</action>   
+    		<action name="showInventory" class="orderWeb" method="showInventory">
+    		 	<result name="success">/showInventory.jsp</result>
+    		</action>   
+    				
     				
   	</package>
 

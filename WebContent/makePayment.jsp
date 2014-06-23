@@ -21,7 +21,7 @@ function validate(){
 </script>
 </head>
 <body>
-
+<h3>Make Order Payment</h3>
 <form name="makePaymentForm" id="makePaymentForm" action="makePayment.action" method="post">
 
 <s:hidden id="orderId" name="orderId"></s:hidden>

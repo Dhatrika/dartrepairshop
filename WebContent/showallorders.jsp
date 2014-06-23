@@ -27,8 +27,8 @@ function openCustomer(custId){
 <s:hidden id="customerId" name="customerId"/>
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 
-
 <s:if test='allOrders.size() > 0'>	
+<h3>All Orders are:</h3>
 <table>
 <tr style="font-weight:bold;">
 		<td>OrderId</td>

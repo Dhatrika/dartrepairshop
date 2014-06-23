@@ -27,6 +27,10 @@
 		var url = "./resetPassword.action?userId=" + ownerId.value;
 		window.open(url,"_blank");
 	}
+	function showInventory(){
+		var url = "./showInventory.action";
+		window.open(url,"_blank");
+	}
 </script>
 
 </head>
@@ -40,6 +44,7 @@
 <li><a id="allCustomers" href="javascript:allCustomers();">Show All Customers</a></li>
 <li><a id="logout" href="javascript:logOut();">Logout</a></li>
 <li><a id="reset" href="javascript:resetPassword();">Reset Password</a></li>
+<li><a id="showInventory" href="javascript:showInventory();">Show Inventory</a></li>
 
 </ul>
 

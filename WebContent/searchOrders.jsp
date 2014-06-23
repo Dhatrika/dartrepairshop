@@ -48,6 +48,7 @@ function setAutoComplete(){
   </script>
 </head>
 <body onload="setAutoComplete();">
+<h3>Search Orders</h3>
 
 <form name="searchOrderForm" id="searchOrderForm" action="searchOrders.action" method="post">
 <s:hidden id="ownerRelated" name="ownerRelated"/>
@@ -65,8 +66,10 @@ function setAutoComplete(){
 <tr><td>Customer</td><td><s:textfield theme="simple" name='searchCustomer' id="searchCustomer"/></td></tr>
 
 </table>
+<br>
 <s:submit theme="simple" onclick="return searchOrders();" type="submit" value="SEARCH" name="SEARCH" cssStyle="color: #FFFFFF; font-size: 11px; text-align:center; font-weight: bold;  line-height: 23px; height: 23px; padding: 0px 10px 0px 10px; background-color: #454FA2; border: 0px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; margin-right: 99px;"></s:submit>
-
+<br>
+<br>
 <s:if test='allOrders.size() > 0'>	
 <table>
 <tr style="font-weight:bold;">
@@ -105,7 +108,7 @@ function setAutoComplete(){
 </s:iterator>
 </table>
 </s:if>
-
+<br>
 </form>
 
 

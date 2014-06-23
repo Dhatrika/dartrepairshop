@@ -11,7 +11,6 @@ import java.util.List;
 import common.modules.Item;
 import common.modules.Order;
 import common.modules.Part;
-import common.modules.PaymentInfo;
 import common.modules.Status;
 
 public class OrderDaoImpl implements OrderDao{
@@ -325,12 +324,14 @@ public class OrderDaoImpl implements OrderDao{
 			if (connection != null) {
 				
 				
-				partsrs = cs.executeQuery("SELECT PartId, PartName FROM Part");
+				partsrs = cs.executeQuery("SELECT PartId, PartName, brand, actualPrice FROM Part");
 				if(partsrs != null){
 					while(partsrs.next()){
 						Part pt = new Part();
 						pt.setPartId(partsrs.getInt(1));
 						pt.setPartName(partsrs.getString(2));
+						pt.setBrand(partsrs.getString(3));
+						pt.setPrice(partsrs.getDouble(4));
 						allParts.add(pt);
 						}
 				}
