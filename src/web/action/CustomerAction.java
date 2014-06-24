@@ -104,7 +104,7 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	        	return SUCCESS;
 	        }
 	        else{
-	        	return "";
+	        	return "close";
 	        }
 		}
 		

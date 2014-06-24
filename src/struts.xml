@@ -54,6 +54,7 @@
     		 <action name="saveCustomerInfo" class="customerWeb" method="saveCustomerInfo">
       			<result name="success" type="redirect">
 				loadProfile.action?customerId=${customerId}&amp;ownerRelated=${ownerRelated}</result>
+				<result name="close">/closeWindow.jsp</result>
     		</action>
     		
     		<action name="addOrder" class="orderWeb" method="addOrder">
@@ -67,6 +68,7 @@
     		<action name="saveCustomerExistingOrder" class="orderWeb" method="saveCustomerExistingOrder">
       			<result name="success" type="redirect">
 				loadOrder.action?orderId=${orderId}&amp;ownerRelated=${ownerRelated}</result>
+				<result name="close">/closeWindow.jsp</result>
     		</action> 
     		
     		<action name="loadPayment" class="orderWeb" method="loadPayment">

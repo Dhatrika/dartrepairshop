@@ -13,7 +13,6 @@ var statusIdkey = 0;
 function saveAndClose(){
 	closeWindow.value = "true";
 	validate();
-	window.close();
 }
 function validate(){
 	

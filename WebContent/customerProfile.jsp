@@ -13,7 +13,6 @@
 function saveAndClose(){
 	closeWindow.value = "true";
 	saveCustomerInfo();
-	window.close();
 }
 function saveCustomerInfo(){
 	if(saveCustomerForm.phoneNumber.value == '' || !IsNumeric(saveCustomerForm.phoneNumber.value)){

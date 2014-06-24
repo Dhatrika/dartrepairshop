@@ -150,7 +150,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 		
 		
 		public String saveCustomerExistingOrder() throws Exception{
-			closeWindow = false;
+			
 			String ownerRelatedString = request.getParameter("ownerRelated");
 			ownerRelated = Boolean.valueOf(ownerRelatedString);
 			int ordId = completeOrder.getOrderId();
@@ -162,7 +162,7 @@ public class OrderAction extends ActionSupport implements ServletRequestAware, S
 				return SUCCESS;
 			}
 			else{
-				return "";
+				return "close";
 			}
 		}
 		
