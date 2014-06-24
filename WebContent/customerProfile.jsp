@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function saveAndClose(){
 	closeWindow.value = "true";
-	saveCustomerInfo();
+	return saveCustomerInfo();
 }
 function saveCustomerInfo(){
 	if(saveCustomerForm.phoneNumber.value == '' || !IsNumeric(saveCustomerForm.phoneNumber.value)){
@@ -64,6 +64,23 @@ function saveCustomerInfo(){
 		alert('Please enter valid Card Number, should contain only numeric values');
 		return false;
 	}
+	//check if email address already exists
+	var catList = allEmailAddresses.value; 
+	var availableEmails = catList.split(",");
+	var len2 = availableEmails.length;
+	var newEmailId = saveCustomerForm.custEmailAddress.value
+	for(var j = 0; j < len2; ++j){
+		if(availableEmails[j] == newEmailId)
+		{
+			if(newEmailId == oldEmailAddress.value){
+				//do nothing
+			}
+			else{
+				alert('Email address already taken, please enter another');
+				return false;
+			}
+		}
+	}
 	return true;
 }
 
@@ -88,6 +105,8 @@ function showAllOrders(){
 <s:hidden id="customerId" name="customer.customerId"/>
 <s:hidden id="ownerRelated" name="ownerRelated"/>
 <s:hidden id="closeWindow" name="closeWindow"/>
+<s:hidden id="allEmailAddresses" name="allEmailAddresses"/>
+<s:hidden id="oldEmailAddress" name="oldEmailAddress"></s:hidden>
 
 <h3>Customer Details:</h3>
 

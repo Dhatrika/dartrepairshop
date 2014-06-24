@@ -1,5 +1,6 @@
 package web.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,8 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	   List<Customer> allCustomers;
 	   private Boolean ownerRelated;
 	   private Boolean closeWindow;
+	   private String allEmailAddresses;
+	   private String oldEmailAddress;
 	   
 	   @Override
 		public void setServletRequest(HttpServletRequest arg0) {
@@ -88,6 +91,20 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 	        customerId = custId;
 	        customer = customerService.getCustomerInfo(customerId);
 	        closeWindow = false;
+	        allEmailAddresses = "";
+	        List<Customer> allCusts = customerService.getAllCustomers();
+			int i = 1;
+			int len = allCusts.size();
+			for( Customer ct : allCusts){
+				if( i == (len)){
+					allEmailAddresses += ct.getEmailAddress();
+				}
+				else{
+					allEmailAddresses += (ct.getEmailAddress() + ",");
+				}
+				i = i+1;
+			}
+			oldEmailAddress = customer.getEmailAddress();
 			return SUCCESS;
 		}
 		
@@ -181,6 +198,22 @@ public class CustomerAction extends ActionSupport implements ServletRequestAware
 
 		public void setCloseWindow(Boolean closeWindow) {
 			this.closeWindow = closeWindow;
+		}
+
+		public String getAllEmailAddresses() {
+			return allEmailAddresses;
+		}
+
+		public void setAllEmailAddresses(String allEmailAddresses) {
+			this.allEmailAddresses = allEmailAddresses;
+		}
+
+		public String getOldEmailAddress() {
+			return oldEmailAddress;
+		}
+
+		public void setOldEmailAddress(String oldEmailAddress) {
+			this.oldEmailAddress = oldEmailAddress;
 		}
 	
 
